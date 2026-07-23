@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ChatX Chat</title>
+<style>
+body{margin:0;background:#071426;color:#fff;font-family:Arial}
+.top{padding:16px;background:#102040;display:flex;align-items:center;gap:12px}
+.back{color:#fff;text-decoration:none;font-size:22px}
+#msgs{padding:15px;height:75vh;overflow:auto}
+.b{max-width:70%;padding:12px;border-radius:18px;margin:10px 0}
+.left{background:#1b2d53}.right{background:#2563eb;margin-left:auto}
+.send{position:fixed;bottom:0;left:0;right:0;display:flex;padding:10px;background:#102040}
+input{flex:1;padding:12px;border-radius:20px;border:none}
+button{margin-left:10px;border:none;border-radius:20px;padding:12px 20px}
+</style></head>
+<body>
+<div class="top"><a class="back" href="index.html">←</a><div id="name"></div></div>
+<div id="msgs">
+<div class="b left">Hello 👋</div>
+<div class="b right">Hi! How are you?</div>
+<div class="b left">I'm good. Welcome to ChatX.</div>
+</div>
+<div class="send">
+<input id="t" placeholder="Type a message...">
+<button onclick="s()">Send</button>
+</div>
+<script>
+const p=new URLSearchParams(location.search);
+document.getElementById("name").textContent=p.get("user")||"User";
+function s(){
+let v=t.value.trim();if(!v)return;
+msgs.innerHTML+=`<div class="b right">${v}</div>`;
+t.value="";
+msgs.scrollTop=msgs.scrollHeight;
+}
+</script>
+</body></html>

@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ChatX Settings</title>
+<style>
+*{box-sizing:border-box;font-family:Arial,sans-serif}
+body{margin:0;background:linear-gradient(180deg,#071426,#140a2e);color:#fff;padding:18px}
+.card{background:rgba(255,255,255,.08);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:18px;margin:16px 0}
+h1{margin:0 0 18px}
+.avatar{width:90px;height:90px;border-radius:50%;object-fit:cover;background:#345;margin:auto;display:block}
+button{margin-top:10px;padding:10px 16px;border:none;border-radius:12px;background:#2b7cff;color:#fff}
+input{width:100%;padding:12px;margin-top:8px;border:none;border-radius:12px;background:#0f203c;color:#fff}
+label{display:block;margin-top:12px}
+.small{color:#a9c7ff;font-size:13px}
+</style>
+</head>
+<body>
+<h1>⚙️ ChatX Settings</h1>
+
+<div class="card" style="text-align:center">
+<img id="avatar" class="avatar">
+<input type="file" id="photo" accept="image/*" style="display:none">
+<button onclick="photo.click()">Change Profile Photo</button>
+</div>
+
+<div class="card">
+<label>Username</label>
+<input id="username" placeholder="Enter username">
+<button onclick="saveName()">Save Username</button>
+<div class="small">Current: <span id="currentName"></span></div>
+</div>
+
+<div class="card">
+<label>Change Screen PIN</label>
+<input id="pin" type="password" maxlength="6" placeholder="4-6 digit PIN">
+<button onclick="savePin()">Save PIN</button>
+<div class="small" id="pinStatus"></div>
+</div>
+
+<script>
+const defaultImg="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc5MCcgaGVpZ2h0PSc5MCc+PGNpcmNsZSBjeD0nNDUnIGN5PSc0NScgcj0nNDUnIGZpbGw9JyM0YjZiZmYnLz48dGV4dCB4PSc0NScgeT0nNTAnIGZvbnQtc2l6ZT0nMzYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZpbGw9J3doaXRlJz7wn5GkPC90ZXh0Pjwvc3ZnPg==";
+avatar.src=localStorage.chatxPhoto||defaultImg;
+username.value=localStorage.chatxUser||"";
+currentName.textContent=localStorage.chatxUser||"Not set";
+pinStatus.textContent=localStorage.chatxPin?"PIN is configured":"No PIN saved";
+
+photo.onchange=e=>{
+ const f=e.target.files[0];
+ if(!f)return;
+ const r=new FileReader();
+ r.onload=()=>{avatar.src=r.result;localStorage.chatxPhoto=r.result;}
+ r.readAsDataURL(f);
+};
+
+function saveName(){
+ localStorage.chatxUser=username.value.trim();
+ currentName.textContent=localStorage.chatxUser||"Not set";
+ alert("Username saved");
+}
+function savePin(){
+ const p=pin.value.trim();
+ if(p.length<4){alert("PIN must be at least 4 digits");return;}
+ localStorage.chatxPin=p;
+ pin.value="";
+ pinStatus.textContent="PIN saved successfully";
+ alert("PIN saved");
+}
+</script>
+</body>
+</html>
