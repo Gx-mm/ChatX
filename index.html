@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChatX - Safe & Secure</title>
+
+<link rel="stylesheet" href="index.css">
+
+</head>
+<body>
+
+<div class="bg"></div>
+
+<div class="card">
+
+  <div class="logo">
+    <div class="bubble"></div>
+    <div class="bubble small"></div>
+  </div>
+
+  <h1>Chat<span>X</span></h1>
+
+  <div class="safe">
+    • 🔒 Safe &amp; Secure •
+  </div>
+
+  <div class="shield">
+    <div class="lock">🔒</div>
+  </div>
+
+  <!-- Google Login -->
+  <button class="google" id="googleLogin">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="">
+    Continue with Google
+  </button>
+
+
+
+  <p class="footer">
+    🛡 Your chats. Your privacy. Always protected.
+  </p>
+
+</div>
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL = "https://uaawwwdyjogseeanzfav.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhYXd3d2R5am9nc2VlYW56ZmF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ2MzYwNzcsImV4cCI6MjEwMDIxMjA3N30.gjDWOzU1O1sXH3VcP1IIEUp0uQzpRdF_xzzZ9Rwxluk";
+
+const client = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+
+document
+.getElementById("googleLogin")
+.addEventListener("click", async () => {
+
+    const { error } = await client.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+            redirectTo: "https://gx-mm.github.io/ChatX/auth.html"
+        }
+    });
+
+    if (error) {
+        alert(error.message);
+    }
+
+});
+
+</script>
+
+</body>
+</html>

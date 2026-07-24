@@ -1,0 +1,7 @@
+body{margin:0;background:#071426;color:#fff;font-family:Arial}
+.top{padding:16px;background:#102040;display:flex;align-items:center;gap:12px}.back{color:#fff;text-decoration:none;font-size:22px}
+.avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;background:#333}
+#msgs{padding:15px;height:75vh;overflow:auto}.b{max-width:70%;padding:12px;border-radius:18px;margin:10px 0;word-wrap:break-word}
+.left{background:#1b2d53}.right{background:#2563eb;margin-left:auto}
+.send{position:fixed;bottom:0;left:0;right:0;display:flex;padding:10px;background:#102040}
+input{flex:1;padding:12px;border-radius:20px;border:none}button{margin-left:10px;border:none;border-radius:20px;padding:12px 20px}

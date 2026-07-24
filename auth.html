@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChatX - Loading</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#090d23;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+color:#fff;
+}
+
+.card{
+text-align:center;
+}
+
+.loader{
+width:55px;
+height:55px;
+border:5px solid rgba(255,255,255,.2);
+border-top:5px solid #4f8cff;
+border-radius:50%;
+animation:spin 1s linear infinite;
+margin:0 auto 20px;
+}
+
+@keyframes spin{
+100%{transform:rotate(360deg);}
+}
+
+h2{
+margin-bottom:10px;
+}
+
+p{
+opacity:.7;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+<body>
+
+<div class="card">
+<div class="loader"></div>
+<h2>ChatX</h2>
+<p>Please wait...</p>
+</div>
+
+<script>
+
+const SUPABASE_URL="https://uaawwwdyjogseeanzfav.supabase.co";
+const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhYXd3d2R5am9nc2VlYW56ZmF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ2MzYwNzcsImV4cCI6MjEwMDIxMjA3N30.gjDWOzU1O1sXH3VcP1IIEUp0uQzpRdF_xzzZ9Rwxluk";
+
+const client=window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_ANON_KEY
+);
+
+async function checkUser(){
+
+const {data:{session}}=await client.auth.getSession();
+
+if(!session){
+location.href="index.html";
+return;
+}
+
+const user=session.user;
+
+const {data,error}=await client
+.from("users")
+.select("id")
+.eq("id",user.id)
+.maybeSingle();
+
+if(error || !data){
+
+location.href="username.html";
+
+}else{
+
+location.href="home.html";
+
+}
+
+}
+
+checkUser();
+
+</script>
+
+</body>
+</html>
